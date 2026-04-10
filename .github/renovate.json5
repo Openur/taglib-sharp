@@ -1,0 +1,115 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:recommended",
+    ":disableRateLimiting",
+    ":semanticCommits"
+  ],
+  dependencyDashboardTitle: "Renovate Dashboard",
+  minimumReleaseAge: "3 day",
+  schedule: [
+    "* * * * *"
+  ],
+  suppressNotifications: [
+    "prEditedNotification",
+    "prIgnoreNotification"
+  ],
+  packageRules: [
+    {
+      description: "GitHub Actions Group",
+      groupName: "github-actions",
+      matchManagers: ["github-actions"],
+      matchPackageNames: [
+        "/^actions\//",
+      ],
+      matchDepTypes: ["action"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Auto-merge trusted GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchPackageNames: [
+        "/^actions\//",
+      ],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      minimumReleaseAge: "3 hours",
+      ignoreTests: false,
+    },
+    {
+      extends: ["monorepo:dotnet"],
+      description: ["Disable major version updates for .NET"],
+      matchUpdateTypes: ["major"],
+      enabled: false,
+    },
+    {
+      matchUpdateTypes: ["major"],
+      semanticCommitType: "feat",
+      commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
+      commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      semanticCommitType: "feat",
+      commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
+    },
+    {
+      matchUpdateTypes: ["patch"],
+      semanticCommitType: "fix",
+      commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
+    },
+    {
+      matchUpdateTypes: ["digest"],
+      semanticCommitType: "chore",
+      commitMessageExtra: "( {{currentDigestShort}} ➔ {{newDigestShort}} )",
+    },
+    {
+      matchDatasources: ["docker"],
+      semanticCommitScope: "container",
+      commitMessageTopic: "image {{depName}}",
+    },
+    {
+      matchManagers: ["github-actions"],
+      semanticCommitType: "ci",
+      semanticCommitScope: "github-action",
+      commitMessageTopic: "action {{depName}}",
+    },
+    {
+      matchManagers: ["nuget"],
+      semanticCommitType: "chore",
+      semanticCommitScope: "nuget",
+      commitMessageTopic: "nuget {{depName}}",
+    },
+    {
+      matchUpdateTypes: ["major"],
+      labels: ["type/major"],
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      labels: ["type/minor"],
+    },
+    {
+      matchUpdateTypes: ["patch"],
+      labels: ["type/patch"],
+    },
+    {
+      matchUpdateTypes: ["digest"],
+      labels: ["type/digest"],
+    },
+    {
+      matchDatasources: ["docker"],
+      addLabels: ["renovate/container"],
+    },
+    {
+      matchManagers: ["github-actions"],
+      addLabels: ["renovate/github-action"],
+    },
+    {
+      matchDatasources: ["nuget"],
+      addLabels: ["renovate/nuget"],
+    },
+  ]
+}
