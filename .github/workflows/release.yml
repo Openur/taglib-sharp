@@ -48,7 +48,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Build
         run: dotnet build src/TaglibSharp/TaglibSharp.csproj --configuration Release -p:PackageId=${{ github.repository_owner }}.TagLibSharp -p:Version=${{ needs.prepare.outputs.version_prefix }}.${{ github.run_number }} -p:RepositoryUrl="https://github.com/${{ github.repository }}" -p:PackageProjectUrl="https://github.com/${{ github.repository }}"
