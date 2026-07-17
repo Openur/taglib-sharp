@@ -6,9 +6,9 @@
     ":semanticCommits"
   ],
   dependencyDashboardTitle: "Renovate Dashboard",
-  minimumReleaseAge: "3 day",
+  minimumReleaseAge: "1 day",
   schedule: [
-    "* * * * *"
+    "* * * * 6"
   ],
   suppressNotifications: [
     "prEditedNotification",
