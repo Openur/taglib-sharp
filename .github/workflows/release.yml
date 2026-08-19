@@ -86,7 +86,7 @@ jobs:
           artifacts: packages/*.nupkg
           artifactErrorsFailBuild: true
           draft: false
-          generateReleaseNotes: false
+          generateReleaseNotes: true
           skipIfReleaseExists: true
           immutableCreate: true
           name: v${{ needs.prepare.outputs.version_prefix }} (build ${{ github.run_number }})
