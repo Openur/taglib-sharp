@@ -7,8 +7,9 @@
   ],
   dependencyDashboardTitle: "Renovate Dashboard",
   minimumReleaseAge: "1 day",
+  minimumReleaseAgeBehaviour: "timestamp-optional",
   schedule: [
-    "* * * * 6"
+    "* * * * *"
   ],
   suppressNotifications: [
     "prEditedNotification",
